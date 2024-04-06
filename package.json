@@ -1,0 +1,35 @@
+{
+  "name": "gyro-discord-bot",
+  "version": "1.0.0",
+  "description": "a music bot for Discord",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "register": "node commands.js",
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/breno-hof/gyro-discord-bot.git"
+  },
+  "author": "@breno-hof",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/breno-hof/gyro-discord-bot/issues"
+  },
+  "homepage": "https://github.com/breno-hof/gyro-discord-bot#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "@discordjs/opus": "^0.9.0",
+    "@discordjs/voice": "^0.16.1",
+    "discord.js": "^14.12.1",
+    "dotenv": "^16.4.5",
+    "ffmpeg-static": "^5.2.0",
+    "sodium": "^3.0.2",
+    "youtube-search-without-api-key": "^2.0.1",
+    "ytdl-core": "^4.11.5"
+  }
+}
