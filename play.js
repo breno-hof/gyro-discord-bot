@@ -24,8 +24,16 @@ export async function play(channel, query, queue) {
     await searchAndPlay(query, audioPlayer);
 
     audioPlayer.on(AudioPlayerStatus.Idle, nextMusic(queue, audioPlayer, connection))
+    audioPlayer.on('error', handleErrors(queue, audioPlayer, connection));
 
     return 'Aproveite o som!'
+}
+
+function handleErrors(queue, audioPlayer, connection) {
+    return error => {
+        console.error(`Error: ${error.message} with resource ${error.resource.metadata.title}`);
+        nextMusic(queue, audioPlayer, connection);
+    };
 }
 
 function nextMusic(queue, audioPlayer, connection) {
@@ -58,7 +66,10 @@ function createConnection(channel) {
 }
 
 async function searchAndPlay(query, audioPlayer) {
-    const url = (await ytsrch.search(query)).at(0).url;
+    const song = (await ytsrch.search(query)).at(0);
+    const url = song.url;
+
+    console.log(`Playing ${song.title}`)
 
     const stream = ytdl(url, {
         filter: "audioonly",
