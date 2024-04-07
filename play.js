@@ -31,7 +31,7 @@ export async function play(channel, query, queue) {
 
 function handleErrors(queue, audioPlayer, connection) {
     return error => {
-        console.error(`Error: ${error.message} with resource ${error.resource.metadata.title}`);
+        console.error(`Error: ${error.message} with resource ${error.resource}`);
         nextMusic(queue, audioPlayer, connection);
     };
 }
@@ -39,7 +39,9 @@ function handleErrors(queue, audioPlayer, connection) {
 function nextMusic(queue, audioPlayer, connection) {
     return async () => {
         if (queue.length === 0) {
-            setTimeout(() => connection.destroy(), 30_000);
+            setTimeout(() => {
+                if (queue.length === 0) connection.destroy();
+            }, 30_000);
             return;
         }
 
