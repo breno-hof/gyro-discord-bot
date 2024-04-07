@@ -10,30 +10,31 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 const queue = {};
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+	console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on('interactionCreate', async interaction => {
-  if (!interaction.isChatInputCommand()) return;
+	if (!interaction.isChatInputCommand()) return;
 
-  let text = 'Ocorreu um erro!';
-  const voiceChannel = interaction.member.voice.channel;
-  
-  if (!queue[interaction.guildId]) {
-    queue[interaction.guildId] = [];
-  }
+	let text = 'Ocorreu um erro!';
+	const voiceChannel = interaction.member.voice.channel;
 
-  console.log(`[${interaction.guild.name}] [${interaction.member.nickname}] [${interaction.commandName}]`)
-  if (interaction.commandName === 'play') {
-  } else if (interaction.commandName === 'leave') {
-    text = await leave(voiceChannel);
-  } else if (interaction.commandName === 'pause') {
-    text = await pause(voiceChannel);
-  } else if (interaction.commandName === 'skip') {
-    text = await stop(voiceChannel);
-  }
+	if (!queue[interaction.guildId]) {
+		queue[interaction.guildId] = [];
+	}
 
-  await interaction.reply(text);
+	console.log(`[${interaction.guild.name}] [${interaction.member.displayName}] [${interaction.commandName}]`)
+	if (interaction.commandName === 'play') {
+		text = await play(voiceChannel, interaction.options.data[0].value, queue[interaction.guildId]);
+	} else if (interaction.commandName === 'leave') {
+		text = await leave(voiceChannel);
+	} else if (interaction.commandName === 'pause') {
+		text = await pause(voiceChannel);
+	} else if (interaction.commandName === 'skip') {
+		text = await stop(voiceChannel);
+	}
+
+	await interaction.reply(text);
 });
 
 client.login(DISCORD_TOKEN);
