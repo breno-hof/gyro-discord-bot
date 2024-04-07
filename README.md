@@ -14,11 +14,12 @@ APP_ID= // you discord bot application id
 
 `npm start` to start the application.
 
-
-`/play query:String  // Receives a string to look for the song and play the song in user's current  voice channel`
-`/leave // Disconnect bot from voice channel`
-`/pause // Pause and unpause music`
-`/skip // Skip music`
+```
+/play query:String  // Receives a string to look for the song and play the song in user's current  voice channel
+/leave // Disconnect bot from voice channel
+/pause // Pause and unpause music
+/skip // Skip music
+```
 
 The bot maintains a music queue for each discord guild.
 
