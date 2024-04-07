@@ -25,8 +25,8 @@ const commands = [
         description: 'Pause current music',
     },
     {
-        name: 'stop',
-        description: 'Stop current music',
+        name: 'skip',
+        description: 'Skip current music',
     },
 ];
 
