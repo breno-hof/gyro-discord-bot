@@ -23,8 +23,8 @@ client.on('interactionCreate', async interaction => {
     queue[interaction.guildId] = [];
   }
 
+  console.log(`[${interaction.guild.name}] [${interaction.member.nickname}] [${interaction.commandName}]`)
   if (interaction.commandName === 'play') {
-    text = await play(voiceChannel, interaction.options.data[0].value, queue[interaction.guildId]);
   } else if (interaction.commandName === 'leave') {
     text = await leave(voiceChannel);
   } else if (interaction.commandName === 'pause') {
