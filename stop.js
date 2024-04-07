@@ -7,7 +7,7 @@ export async function stop(channel) {
 
     if (connection && connection.state.subscription) {
         connection.state.subscription.player.stop();
-        return 'O bahiano quer dormir ele desligou o som.';
+        return 'A música foi pulada.';
     }
 
     return 'Não estou tocando música no momento.'

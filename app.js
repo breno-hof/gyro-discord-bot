@@ -16,7 +16,7 @@ client.on('ready', () => {
 client.on('interactionCreate', async interaction => {
   if (!interaction.isChatInputCommand()) return;
 
-  let text = 'Ocorreu um erro! O bahiano não soube programar!';
+  let text = 'Ocorreu um erro!';
   const voiceChannel = interaction.member.voice.channel;
   
   if (!queue[interaction.guildId]) {

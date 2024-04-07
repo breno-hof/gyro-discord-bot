@@ -10,11 +10,11 @@ export async function pause(channel) {
 
         if (player.state.status === AudioPlayerStatus.Paused) {
             player.unpause()
-            return 'O bahiano acordou e ligou o som.';
+            return 'A música despausada.';
         }
 
         player.pause()
-        return 'O bahiano quer dormir ele desligou o som.';
+        return 'A música foi pausada.';
     }
 
     return 'Não estou tocando música no momento.'
