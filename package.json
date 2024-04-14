@@ -1,12 +1,13 @@
 {
   "name": "gyro-discord-bot",
   "version": "1.0.0",
-  "description": "a music bot for Discord",
-  "main": "app.js",
+  "description": "a music player bot for Discord",
+  "main": "App.js",
   "type": "module",
   "scripts": {
-    "register": "node commands.js",
-    "start": "nodemon app.js",
+    "build": "npx tsc",
+    "start": "npm run build && node ./build/App.js",
+    "register": "npm run build && node ./build/RegisterCommands.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,17 +20,17 @@
     "url": "https://github.com/breno-hof/gyro-discord-bot/issues"
   },
   "homepage": "https://github.com/breno-hof/gyro-discord-bot#readme",
-  "devDependencies": {
-    "nodemon": "^3.1.0"
-  },
   "dependencies": {
-    "@discordjs/opus": "^0.9.0",
     "@discordjs/voice": "^0.16.1",
-    "discord.js": "^14.12.1",
+    "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
     "ffmpeg-static": "^5.2.0",
-    "sodium": "^3.0.2",
+    "libsodium-wrappers": "^0.7.13",
     "youtube-search-without-api-key": "^2.0.1",
     "ytdl-core": "^4.11.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
   }
 }
