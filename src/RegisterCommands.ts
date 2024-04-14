@@ -4,11 +4,11 @@ import {
     Routes,
 } from "discord.js";
 import { RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord.js';
-import { LeaveCommand } from './commands/LeaveCommand';
-import { SkipCommand } from './commands/SkipCommand';
-import { QueueCommand } from './commands/QueueCommand';
-import { PauseCommand } from './commands/PauseCommand';
-import { PlayCommand } from './commands/PlayCommand';
+import { LeaveCommand } from './commands/LeaveCommand.js';
+import { SkipCommand } from './commands/SkipCommand.js';
+import { QueueCommand } from './commands/QueueCommand.js';
+import { PauseCommand } from './commands/PauseCommand.js';
+import { PlayCommand } from './commands/PlayCommand.js';
 
 class RegisterCommands {
 

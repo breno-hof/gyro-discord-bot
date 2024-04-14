@@ -4,9 +4,9 @@ import {
     SlashCommandBuilder,
     GuildMember
 } from "discord.js";
-import { ISlashCommand } from "./ISlashCommand";
+import { ISlashCommand } from "./ISlashCommand.js";
 import { AudioPlayerStatus, getVoiceConnection } from "@discordjs/voice";
-import { ApplicationConstants } from "../ApplicationConstants";
+import { ApplicationConstants } from "../ApplicationConstants.js";
 
 export class PauseCommand implements ISlashCommand {
     readonly name: string = "pause";

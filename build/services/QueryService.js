@@ -7,18 +7,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export class HandleInteractions {
-    constructor(commands) {
-        this.commands = commands;
-    }
-    handle(interaction) {
+import * as ytsrch from 'youtube-search-without-api-key';
+export class QueryService {
+    search(interaction) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!interaction.isChatInputCommand())
-                return;
-            const command = this.commands.get(interaction.commandName);
-            if (command) {
-                yield interaction.reply(yield command.execute(interaction));
-            }
+            if (!('options' in interaction))
+                throw new Error(`Options undefined in interaction object of QueryService.search()`);
+            const query = interaction.options.data[0].value;
+            const songList = yield ytsrch.search(query);
+            const song = songList.at(0);
+            if (!song)
+                throw new Error(`Song is undefined, probably query found nothing.`);
+            return song;
         });
     }
 }

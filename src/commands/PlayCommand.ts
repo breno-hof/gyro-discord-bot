@@ -4,13 +4,13 @@ import {
     SlashCommandBuilder,
     GuildMember
 } from "discord.js";
-import { ISlashCommand } from "./ISlashCommand";
-import { ApplicationConstants } from "../ApplicationConstants";
-import { ConnectionFactory } from "../factories/ConnectionFactory";
-import { AudioPlayerFactory } from "../factories/AudioPlayerFactory";
-import { QueueService } from "../services/QueueService";
+import { ISlashCommand } from "./ISlashCommand.js";
+import { ApplicationConstants } from "../ApplicationConstants.js";
+import { ConnectionFactory } from "../factories/ConnectionFactory.js";
+import { AudioPlayerFactory } from "../factories/AudioPlayerFactory.js";
+import { QueueService } from "../services/QueueService.js";
 import { AudioPlayerStatus } from "@discordjs/voice";
-import { QueryService } from "../services/QueryService";
+import { QueryService } from "../services/QueryService.js";
 
 export class PlayCommand implements ISlashCommand {
     readonly name: string = "play";
@@ -40,22 +40,23 @@ export class PlayCommand implements ISlashCommand {
             const channel = member.voice.channel;
 
             if (!channel) return ApplicationConstants.USER_NOT_IN_VOICE_CHANNEL;
+            
+            const key = interaction.guildId; 
 
-            const player = new AudioPlayerFactory(this.queueService).create();
-            const connection = new ConnectionFactory(channel, player).create();
+            if (!key) throw new Error(`Key is undefined but how? It's impossible`);
 
-            console.log(`New connection at the status ${connection.state.status}`);
+            const connection = new ConnectionFactory(channel).create();
+            const player = new AudioPlayerFactory(connection, this.queueService, key).create();
 
             const song = await this.querySercice?.search(interaction);
             
             if (!song) throw new Error(`QueryService didn't found a song on PlayCommand`);
+            
+            this.queueService.add(song, key);
 
-            if (AudioPlayerStatus.Playing === player.state.status) {
-                this.queueService.add(song);
-                return `Added ${song.title} to the queue`; 
-            }
+            if (AudioPlayerStatus.Playing === player.state.status) return `Added ${song.title} to the queue`; 
 
-            const resource = this.queueService.getNext();
+            const resource = this.queueService.getNext(key);
 
             if (!resource) throw new Error(`Resource was not created correctly on PlayCommand`);
 

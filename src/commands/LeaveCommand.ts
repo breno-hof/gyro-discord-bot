@@ -4,8 +4,8 @@ import {
     SlashCommandBuilder,
     GuildMember,
 } from "discord.js";
-import { ISlashCommand } from "./ISlashCommand";
-import { ApplicationConstants } from "../ApplicationConstants";
+import { ISlashCommand } from "./ISlashCommand.js";
+import { ApplicationConstants } from "../ApplicationConstants.js";
 import { getVoiceConnection } from "@discordjs/voice";
 
 export class LeaveCommand implements ISlashCommand {

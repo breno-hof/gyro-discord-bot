@@ -5,10 +5,11 @@ import {
     VoiceConnection,
     VoiceConnectionStatus,
     entersState,
+    getVoiceConnection,
     joinVoiceChannel
 } from "@discordjs/voice";
 import { Events, GuildChannel } from "discord.js";
-import { ApplicationConstants } from "../ApplicationConstants";
+import { ApplicationConstants } from "../ApplicationConstants.js";
 
 export class ConnectionFactory {
     private readonly options: CreateVoiceConnectionOptions & JoinVoiceChannelOptions;
@@ -25,6 +26,10 @@ export class ConnectionFactory {
     }
 
     create(): VoiceConnection {
+        return getVoiceConnection(this.channel.guildId) || this.build();
+    }
+
+    build(): VoiceConnection {
         const connection = joinVoiceChannel(this.options);
         
         connection.on(Events.Error, error => {
@@ -38,8 +43,6 @@ export class ConnectionFactory {
                 entersState(connection, VoiceConnectionStatus.Connecting, 5_000),
             ]);
         });
-
-        if (this.player) connection.subscribe(this.player);
 
         return connection;
     }

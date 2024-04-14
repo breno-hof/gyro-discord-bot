@@ -1,5 +1,5 @@
 import { Collection, Interaction } from "discord.js";
-import { ISlashCommand } from "./commands/ISlashCommand";
+import { ISlashCommand } from "./commands/ISlashCommand.js";
 
 export class HandleInteractions {
     constructor(readonly commands: Collection<string, ISlashCommand>) {}

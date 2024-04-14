@@ -1,23 +1,26 @@
+import "dotenv/config.js"
 import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
-import { HandleInteractions } from "./HandleInteractions";
-import { ISlashCommand } from "./commands/ISlashCommand";
-import { PlayCommand } from "./commands/PlayCommand";
-import { LeaveCommand } from "./commands/LeaveCommand";
-import { PauseCommand } from "./commands/PauseCommand";
-import { SkipCommand } from "./commands/SkipCommand";
-import { QueueCommand } from "./commands/QueueCommand";
-import { QueueService } from "./services/QueueService";
+import { HandleInteractions } from "./HandleInteractions.js";
+import { ISlashCommand } from "./commands/ISlashCommand.js";
+import { PlayCommand } from "./commands/PlayCommand.js";
+import { LeaveCommand } from "./commands/LeaveCommand.js";
+import { PauseCommand } from "./commands/PauseCommand.js";
+import { SkipCommand } from "./commands/SkipCommand.js";
+import { QueueCommand } from "./commands/QueueCommand.js";
+import { QueueService } from "./services/QueueService.js";
+import { QueryService } from "./services/QueryService.js";
 
 class App {
 
     public main() {
         const { DISCORD_TOKEN } = process.env;
         const queueService = new QueueService();
-        const playCommand = new PlayCommand(queueService);
+        const queryService = new QueryService();
+        const playCommand = new PlayCommand(queueService, queryService);
         const leaveCommand = new LeaveCommand();
         const pauseCommand = new PauseCommand();
         const skipCommand = new SkipCommand();
-        const queueCommand = new QueueCommand();
+        const queueCommand = new QueueCommand(queueService);
         const commands = new Collection<string, ISlashCommand>();
         const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates]});
         const handleInteractions = new HandleInteractions(commands);

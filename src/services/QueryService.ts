@@ -1,6 +1,6 @@
 import { Interaction } from "discord.js";
 import * as ytsrch from 'youtube-search-without-api-key'
-import { QueryServiceDTO } from "../dto/QueryServiceDTO";
+import { QueryServiceDTO } from "../dto/QueryServiceDTO.js";
 
 export class QueryService {
     
