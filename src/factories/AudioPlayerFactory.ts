@@ -28,6 +28,12 @@ export class AudioPlayerFactory {
             const song = this.queueService.getNext(this.key);
             
             if (song) player.play(song);
+
+            setTimeout(() => {
+                if (this.queueService.list(this.key).length <= 0) {
+                    this.connection.destroy();
+                }
+            }, 30_000)
         });
         
         this.connection.subscribe(player);
